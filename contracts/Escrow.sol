@@ -18,6 +18,13 @@ contract Escrow {
         require(msg.sender == seller, "Only the Seller can call this function");
         _;
     }
+    modifier onlyBuyer(uint256 _nftId) {
+        require(
+            msg.sender == buyer[_nftId],
+            "Only the Buyer can call this function"
+        );
+        _;
+    }
 
     constructor(
         address _nftAddress,
@@ -42,5 +49,16 @@ contract Escrow {
         buyer[_nftId] = _buyer;
         purchasePrice[_nftId] = _purchasePrice;
         escrowAmount[_nftId] = _escrowAmount;
+    }
+
+    // Put under contract (only buyer -  payable to the Escrow smart Contract)
+    function payDeposit(uint256 _nftId) public payable onlyBuyer(_nftId) {
+        require(msg.value >= escrowAmount[_nftId]);
+    }
+
+    receive() external payable {}
+
+    function getBalance() public view returns (uint256) {
+        return address(this).balance;
     }
 }

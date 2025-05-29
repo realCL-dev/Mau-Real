@@ -92,9 +92,32 @@ describe('Escrow', function () {
     })
   })
 
+  describe('Deposits', () => {
+    // List the NFT
+    beforeEach(async () => {
+      let transaction = await escrow
+        .connect(seller)
+        .list(1, buyer.address, weiValue(10), weiValue(5))
+      await transaction.wait()
+    })
+
+    it('updates contract balance', async () => {
+      const transaction = await escrow
+        .connect(buyer)
+        .payDeposit(1, { value: weiValue(5) })
+      await transaction.wait()
+      const result = await escrow.getBalance()
+      expect(result).to.be.equal(weiValue(5))
+    })
+  })
+
   describe('Security Measures', () => {
     it('prevents a user other than the seller to list a property', async () => {
-      await expect(escrow.connect(valuator).list(1, buyer.address, weiValue(10), weiValue(5))).to.be.reverted
+      await expect(
+        escrow
+          .connect(valuator)
+          .list(1, buyer.address, weiValue(10), weiValue(5))
+      ).to.be.reverted
     })
   })
 })
