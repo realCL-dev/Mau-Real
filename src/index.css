@@ -1,13 +1,73 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oxygen:wght@300;400;700&display=swap');1
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --clr-white: #FFFFFF;
+  --clr-black: #000000;
+  --clr-grey: #707070;
+  --clr-blue: #2c8abd;
+  --clr-blue-2: #4fbce0;
+  --clr-green: 	#66bc47;
+}
+
+body {
+  margin: 0;
+  font-family: Oxygen, sans-serif;  
+}
+
+/* Navigation */
+
+nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+}
+
+.nav__brand img {
+  max-width: 350px;
+  height:auto;
+}
+
+.nav__links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+}
+
+.nav__links li {
+  margin: 0 15px;
+}
+
+.nav__links li a {
+  text-decoration: none;
+  color: var(--clr-black);
+}
+
+.nav__links li a:hover {
+  color: var(--clr-blue)
+}
+
+.nav__connect {
+  width: 175px;
+  height: 50px;
+  margin: 0 auto;
+  background-color: var(--clr-blue);
+  color:var(--clr-white);
+  border: none;
+  border-radius: 4px;
+  font-family: oxygen;
+  font-size: 1.10em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+}
+
+.nav__connect:hover {
+  background-color: var(--clr-blue-2);
 }
