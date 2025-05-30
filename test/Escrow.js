@@ -86,14 +86,14 @@ describe('Escrow', function () {
       expect(result).to.be.equal(weiValue(10))
     })
 
-    it('returns the escrow Amount', async () => {
-      const result = await escrow.escrowAmount(1)
+    it('returns the deposit Amount', async () => {
+      const result = await escrow.depositAmount(1)
       expect(result).to.be.equal(weiValue(5))
     })
   })
 
   describe('Deposits', () => {
-    // List the NFT
+    //List the NFT
     beforeEach(async () => {
       let transaction = await escrow
         .connect(seller)
@@ -108,6 +108,142 @@ describe('Escrow', function () {
       await transaction.wait()
       const result = await escrow.getBalance()
       expect(result).to.be.equal(weiValue(5))
+    })
+  })
+
+  describe('Valuation', () => {
+    // List the NFT
+    beforeEach(async () => {
+      let transaction = await escrow
+        .connect(seller)
+        .list(1, buyer.address, weiValue(10), weiValue(5))
+      await transaction.wait()
+    })
+
+    it('checks valuation status', async () => {
+      const transaction = await escrow
+        .connect(valuator)
+        .updateValuationStatus(1, true)
+      await transaction.wait()
+      const result = await escrow.valuationPassed(1)
+      expect(result).to.be.equal(true)
+    })
+  })
+
+  describe('Approval', () => {
+    // List the NFT
+    beforeEach(async () => {
+      let transaction = await escrow
+        .connect(seller)
+        .list(1, buyer.address, weiValue(10), weiValue(5))
+      await transaction.wait()
+    })
+
+    it('updates the approval status', async () => {
+      let transaction = await escrow.connect(buyer).approveSale(1)
+      await transaction.wait()
+      transaction = await escrow.connect(seller).approveSale(1)
+      await transaction.wait()
+      transaction = await escrow.connect(lender).approveSale(1)
+      await transaction.wait()
+
+      expect(await escrow.approval(1, buyer.address)).to.be.equal(true)
+      expect(await escrow.approval(1, seller.address)).to.be.equal(true)
+      expect(await escrow.approval(1, lender.address)).to.be.equal(true)
+    })
+  })
+
+  describe('Sale of Property', () => {
+    // List the NFT
+    beforeEach(async () => {
+      let transaction = await escrow
+        .connect(seller)
+        .list(1, buyer.address, weiValue(50), weiValue(5))
+      await transaction.wait()
+
+      transaction = await escrow
+        .connect(buyer)
+        .payDeposit(1, { value: weiValue(5) })
+      //await transaction.wait()
+
+      transaction = await escrow
+        .connect(valuator)
+        .updateValuationStatus(1, true)
+      await transaction.wait()
+
+      transaction = await escrow.connect(buyer).approveSale(1)
+      await transaction.wait()
+
+      transaction = await escrow.connect(seller).approveSale(1)
+      await transaction.wait()
+
+      transaction = await escrow.connect(lender).approveSale(1)
+      await transaction.wait()
+
+      transaction = await lender.sendTransaction({
+        to: escrow.target,
+        value: weiValue(45)
+      })
+      await transaction.wait()
+
+      transaction = await escrow.connect(seller).finalizeSale(1)
+      await transaction.wait()
+    })
+
+    it('updates the ownership of the property', async () => {
+      expect(await realEstate.ownerOf(1)).to.be.equal(buyer.address)
+    })
+
+    it('udpates the balances', async () => {
+      expect(await escrow.getBalance()).to.be.equal(0)
+    })
+  })
+
+  describe('Sale Cancellation', () => {
+    // List the NFT
+    beforeEach(async () => {
+      let transaction = await escrow
+        .connect(seller)
+        .list(1, buyer.address, weiValue(50), weiValue(5))
+      await transaction.wait()
+
+      transaction = await escrow
+        .connect(buyer)
+        .payDeposit(1, { value: weiValue(5) })
+      //await transaction.wait()
+
+      transaction = await escrow
+        .connect(valuator)
+        .updateValuationStatus(1, true)
+      await transaction.wait()
+
+      transaction = await escrow.connect(buyer).approveSale(1)
+      await transaction.wait()
+
+      transaction = await escrow.connect(seller).approveSale(1)
+      await transaction.wait()
+
+      transaction = await escrow.connect(lender).approveSale(1)
+      await transaction.wait()
+    })
+
+    it('properly handles cancellation before lender sends in funds ', async () => {
+      let transaction = await escrow.cancelSale(1)
+      await transaction.wait()
+      expect(await realEstate.ownerOf(1)).to.be.equal(escrow.target)
+      expect(await escrow.getBalance()).to.be.equal(0)
+    })
+
+    it('properly handles cancellation after lender sends in funds', async () => {
+      let transaction = await lender.sendTransaction({
+        to: escrow.target,
+        value: weiValue(45)
+      })
+      await transaction.wait()
+      transaction = await escrow.cancelSale(1)
+      await transaction.wait()
+      expect(await realEstate.ownerOf(1)).to.be.equal(escrow.target)
+      expect(await escrow.getBalance()).to.be.equal(0)
     })
   })
 
