@@ -1,3 +1,4 @@
+//const addresses = require('../deployments/chain-11155111/deployed_addresses.json')
 const addresses = require('../deployments/chain-31337/deployed_addresses.json')
 const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules')
 

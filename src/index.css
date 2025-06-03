@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oxygen:wght@300;400;700&display=swap');1
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oxygen:wght@300;400;700&display=swap');
 
-* {
+1 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -12,12 +12,12 @@
   --clr-grey: #707070;
   --clr-blue: #2c8abd;
   --clr-blue-2: #4fbce0;
-  --clr-green: 	#66bc47;
+  --clr-green: #66bc47;
 }
 
 body {
   margin: 0;
-  font-family: Oxygen, sans-serif;  
+  font-family: Oxygen, sans-serif;
 }
 
 /* Navigation */
@@ -30,7 +30,7 @@ nav {
 
 .nav__brand img {
   max-width: 350px;
-  height:auto;
+  height: auto;
 }
 
 .nav__links {
@@ -47,6 +47,7 @@ nav {
 .nav__links li a {
   text-decoration: none;
   color: var(--clr-black);
+  font-size: larger;
 }
 
 .nav__links li a:hover {
@@ -58,7 +59,7 @@ nav {
   height: 50px;
   margin: 0 auto;
   background-color: var(--clr-blue);
-  color:var(--clr-white);
+  color: var(--clr-white);
   border: none;
   border-radius: 4px;
   font-family: oxygen;
@@ -71,3 +72,223 @@ nav {
 .nav__connect:hover {
   background-color: var(--clr-blue-2);
 }
+
+
+/* Header */
+
+.header {
+  background-image: url("./assets/neighborhood.jpg");
+  background-position: center;
+  background-size: cover;
+  min-height: 40vh;
+  position: relative;
+}
+
+.header__title {
+  position: absolute;
+  top: 10%;
+  /* Move the top edge to 50% down the parent */
+  left: 50%;
+  /* Move the left edge to 50% across the parent */
+  transform: translate(-50%, -50%);
+  /* Shift back by half the child’s width and height */
+  text-align: center;
+  color: var(--clr-white);
+  font-size: 2.2em;
+  width: 100%;
+  padding-bottom: 30px;
+}
+
+.header__search {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px;
+  min-width: 40%;
+}
+
+.header__search::placeholder {
+  font-family: "Oxygen";
+  font-size: 1.25em;
+  font-weight: 600;
+}
+
+.header__search:hover {
+  outline: 1px solid var(--clr-blue);
+}
+
+
+/* cards section */
+
+.cards__section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20 px;
+}
+
+.cards__section h3 {
+  margin: 50px 0 20px;
+}
+
+.cards {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));;
+  margin-top: 20px;
+}
+
+.card {
+  width: 350px;
+  height: 275px;
+
+  border: 1px solid var(--clr-black);
+  margin: 10px auto;
+
+  position: relative;
+  cursor: pointer;
+  overflow: hidden; 
+  transition: 0.2s ease-in;
+}
+
+.card:hover {
+  box-shadow: 1px 1px 5px var(--clr-grey);
+}
+
+.card__image {
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+}
+
+.card__image img {
+  max-width: 100%;
+}
+
+.card__info {
+  width: 100%;
+  height: 40%;
+  background-color: var(--clr-white);
+  padding: 5px 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.card__info h4 {
+  font-size: 1.25em;
+  font-weight: 600;
+  padding: 0;
+  margin:0;
+  margin-top: 10px;
+}
+
+.card__info p {
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+/* Homes section */
+
+.home {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.home__details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+  align-items: center;
+  width: 80%;
+  height: 70%;
+  margin: 0 auto;
+  padding: 20px;
+  position: fixed;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  background: var(--clr-white);
+}
+
+.home__image {
+  max-width: 550px;
+  margin: 10px auto;
+}
+
+.home__image img {
+  max-width: 100%;
+}
+
+.home__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  width: 30px;
+  height: 30px;
+
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.home__close img {
+  width: 25px;
+  height: 25px;
+}
+
+.home__overview {
+  height: 100%;
+  margin: 0 20px;
+  padding-right: 40px;
+  /* overflow-y: scroll; */
+}
+
+.home__overview h1,
+.home__overview h2,
+.home__overview hr {
+  margin: 10px auto;
+}
+
+.home__overview ul {
+  margin-left: 40px;
+}
+
+.home__buy, .home__contact {
+  margin: 10px 5px;
+  background-color: var(--clr-blue);
+  color: var(--clr-white);
+  border: none;
+  /* font-family:"Open Sans"; */
+  font-size: 1.10em;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+}
+
+.home__buy, .home__contact {
+  width: 225px;
+  height: 40px;
+}
+
+.home__buy:hover {
+  background-color: var(--clr-blue-2);
+}
+
+.home__contact {
+  background-color: transparent;
+  color: var(--clr-blue);
+  border: 1px solid var(--clr-blue);
+}
+
+.home__contact:hover {
+  background-color: #fffff9;
+  color: var(--clr-blue-2);
+}
+

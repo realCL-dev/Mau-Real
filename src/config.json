@@ -1,10 +1,21 @@
 {
     "31337": {
         "realEstate": {
-            "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+            "target": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
         },
         "escrow": {
-            "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+            "target": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
         }
+    },
+
+    "11155111": {
+        "realEstate": {
+            "target": "0xfA4481325427979dAB9B90B85EBdf722527a3B05"
+        },
+        "escrow": {
+            "target": "0xBf3C5c5289d83FC25De714B52e7A5f630e09C293"
+        },
+        "explorerURL": "https://sepolia.etherscan.io",
+        "symbol": "SepETH"
     }
 }
