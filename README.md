@@ -1,70 +1,32 @@
-# Getting Started with Create React App
+### `This project is an adaptation of DAPP University's tutorial on Zillow, a Real State site on the Blockchain (https://www.youtube.com/watch?v=jcgfQEbptdo&t) `
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### `npx hardhat node`
+This will launch a local blockchain node, each with 10,000 ETH.
 
-## Available Scripts
+### `npx hardhat ignition deploy ignition/modules/RealEstate.js --network localhost`
+Run the above in a new terminal. This will deploy the RealEstate (NFT) smart contract.
 
-In the project directory, you can run:
+### `npx hardhat ignition deploy ignition/modules/Escrow.js --network localhost`
+This will deploy the Escrow Smart Contract
 
-### `npm start`
+### `npx hardhat run scripts/deploy.js --network localhost`
+To deploy the script minting the three NFTs.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### `npm run start`
+Run the above in a new terminal. This will launch the site.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### `Import the Hardhat Accounts`
+Ensure that you import the first 4 Hardhat accounts from the local node, using their private keys. Rename them as Hardhat#0 to Hardhat#3
 
-### `npm test`
+### `Using hardhat#3`
+Hardhat#3 is the buyer. Select one of the homes (e.g. Spanish Villa) and click on "Buy". Click twice on MetaMask, once to send the deposit funds, and once to approve the sales.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `Using hardhat#1`
+Hardhat#1 is the Valuator. Click once on MetaMask to approve the valuation.
 
-### `npm run build`
+### `Using hardhat#2`
+Hardhat#2 is the Lender (bank). Click twice on MetaMask, once to approve the sale, and once to send the remainder of the funds to the Escrow Account.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### `Using hardhat#0`
+Hardhat#0 is the seller. Click twice on MetaMask, once to approve the sale, and once to finalize the sale. The NFT will be shown as owned by account Hardhat#3. 
+Verify also that the seller's account is credited with the right amount of ETH, and that the buyer and lender accounts are debited by the required amounts.
